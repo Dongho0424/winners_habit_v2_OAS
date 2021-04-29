@@ -1,0 +1,111 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Winner's Habit
+  license:
+    name: Wave
+servers:
+  - url: http://grabtest.tk:4240
+    description: Hi! My name is dongho
+tags:
+  - name: challenge
+    description: about challenge
+  - name: habit
+    description: habit apis
+  - name: user
+    description: user apis
+  - name: winner
+    description: winner apis
+paths:
+  '/challenge':
+    get:
+      tags:
+        - challenge
+      summary: "{userId}가 속한 챌린지의 습관들 불러오기" 
+      parameters:
+        - name: user_id
+          in: query
+          description: PK of user
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChallengeInfo"
+        '404':
+          description: Challenge Not Found
+components:
+  schemas:
+    User:
+      title: a User
+      description: A User who is going to participate in challenge
+      type: object
+      required:
+        - id
+        - username
+        - pw
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        pw:
+          type: string
+    Habit:
+      title: a habit used in home page
+      description: "홈 페이지에서 보여주는 용. 자세한 정보는 없음"
+      type: object
+      required:
+        - habitId
+        - habitName
+        - icon
+        - color
+        - alarmFlag
+      properties:
+        habitId:
+          type: integer
+          format: int64
+        habitName: 
+          type: string
+        icon:
+          type: string
+        color:
+          type: string
+        defaultAttributeValue:
+          type: integer
+          format: int64
+        attribute:
+          type: string
+          description: "습관 고유 성질. 예로 기상 습관은 성공/실패, 운동 습관은 0/20분 등등"
+        alarmFlag:
+          type: boolean
+        alarmTime:
+          type: string
+          description: "form; 06:30:20"
+    ChallengeInfo:
+      title: an information of challenge
+      description: "홈 페이지에서 보여주는 용. 챌린지 이름, d-day, 광고, 등등 포함 가능"
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+        challengeName:
+          type: string
+        challengeDDay:
+          type: string
+        habits:
+          type: array
+          items:
+            $ref: '#/components/schemas/Habit'
+
+          
+         
+
