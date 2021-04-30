@@ -64,7 +64,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/HabitDetail"      
+                $ref: "#/components/schemas/HabitDetail" 
+  '/allChallenges':
+    get:
+      tags:
+        - challenge
+      summary: 모든 챌린지 리스트 가져오기
+      responses:
+        '200':
+          description: success to bring all habits
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/Challenge"
+      
 components:
   schemas:
     User:
@@ -151,7 +164,7 @@ components:
           items:
             $ref: "#/components/schemas/HabitHistory"
     ChallengeInfo:
-      title: an information of challenge
+      title: an information of current challenge
       description: "홈 페이지에서 보여주는 용. 챌린지 이름, d-day, 광고, 등등 포함 가능"
       type: object
       required:
@@ -182,6 +195,23 @@ components:
           type: string
         doneFlag:
           type: boolean
+    Challenge:
+      description: info of sigle challenge
+      type: object
+      required:
+        - challengeId
+        - challengeName
+        - challengeImage
+      properties:
+        challengeId:
+          type: integer
+        challengeName:
+          type: string
+        challengeImage:
+          type: string
+        challengeDDay:
+          type: integer
+      
 
           
          
