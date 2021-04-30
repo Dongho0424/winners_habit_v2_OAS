@@ -35,10 +35,36 @@ paths:
           description: successful operation
           content:
             application/json:
-              schema:
+              schema: 
                 $ref: "#/components/schemas/ChallengeInfo"
         '404':
           description: Challenge Not Found
+  '/habit/{habitId}':
+    get:
+      tags:
+        - habit
+      summary: 유저의 특정 습관의 상세 정보 불러오기
+      description: return HabitDetail
+      parameters:
+        - name: habitId
+          in: path
+          description: PK of habit
+          required: true
+          schema:
+            type: integer
+        - name: user_id
+          in: query
+          description: PK of user
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: success to bring habit details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HabitDetail"      
 components:
   schemas:
     User:
@@ -88,6 +114,42 @@ components:
         alarmTime:
           type: string
           description: "form; 06:30:20"
+    HabitDetail:
+      description: 세부 습관 페이지에서 보여주는 습관
+      type: object
+      properties:
+        userHabitId:
+          type: integer
+        createDate:
+          type: string
+        time:
+          type: string
+        alarm_flag:
+          type: boolean
+        alarm_music:
+          type: string
+        alarm_haptic:
+          type: string
+        repeatMon:
+          type: boolean
+        repeatTue:
+          type: boolean
+        repeatWed:
+          type: boolean
+        repeatThu:
+          type: boolean
+        repeatFri:
+          type: boolean
+        repeatSat:
+          type: boolean
+        repeatSun:
+          type: boolean
+        memo:
+          type: string
+        history:
+          type: array
+          items:
+            $ref: "#/components/schemas/HabitHistory"
     ChallengeInfo:
       title: an information of challenge
       description: "홈 페이지에서 보여주는 용. 챌린지 이름, d-day, 광고, 등등 포함 가능"
@@ -104,7 +166,22 @@ components:
         habits:
           type: array
           items:
+            # type: object
             $ref: '#/components/schemas/Habit'
+    HabitHistory:
+      description: a single history of habit
+      type: object
+      required:
+        - id
+        - date
+        - doneFlag
+      properties:
+        id:
+          type: integer
+        date:
+          type: string
+        doneFlag:
+          type: boolean
 
           
          
