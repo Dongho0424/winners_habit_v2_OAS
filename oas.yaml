@@ -173,10 +173,8 @@ components:
       properties:
         result:
           type: boolean
-        challengeName:
-          type: string
-        challengeDDay:
-          type: string
+        challenge:
+          $ref: "#/components/schemas/Challenge"
         habits:
           type: array
           items:
