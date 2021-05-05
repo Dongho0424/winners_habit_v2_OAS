@@ -79,6 +79,31 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Challenge"
+  '/habit-history':
+    get:
+      tags:
+        - habit
+      summary: userId, date에 해당하는 습관의 히스토리 가져오기
+      parameters:
+        - name: user_id
+          in: query
+          description: PK of user
+          required: true
+          schema:
+            type: integer
+        - name: date
+          in: query
+          description: date which user want to show history of habits
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success to bring habit histories
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/HabitHistory"
 components:
   schemas:
     User:
@@ -184,11 +209,10 @@ components:
       description: a single history of habit
       type: object
       required:
-        - id
-        - date
+        - habitId
         - doneFlag
       properties:
-        id:
+        habitId:
           type: integer
         date:
           type: string
