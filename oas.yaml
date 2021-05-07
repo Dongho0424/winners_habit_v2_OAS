@@ -156,18 +156,23 @@ components:
     HabitDetail:
       description: 세부 습관 페이지에서 보여주는 습관
       type: object
+      required:
+        - userHabitId
+        - createDate
+        - alarmFlag
       properties:
         userHabitId:
           type: integer
         createDate:
           type: string
-        time:
-          type: string
-        alarm_flag:
+        alarmFlag:
           type: boolean
-        alarm_music:
+        alarmTime:
           type: string
-        alarm_haptic:
+          description: "form; 06:30:00"
+        alarmMusic:
+          type: string
+        alarmHaptic:
           type: string
         repeatMon:
           type: boolean
